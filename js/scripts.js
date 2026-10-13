@@ -93,7 +93,7 @@ function getSongs(x) {
       .then((json) => showSongs((json),x))
       .catch((err) => console.error("error:", err));
 }
-function getFormData() {
+function getSongFormData() {
   let aSong = {
       id: document.querySelector("#SongsForm [name='id']").value,
       album: document.querySelector("#SongsForm [name='album']").value,
@@ -103,7 +103,7 @@ function getFormData() {
   return JSON.stringify(aSong);
 }
 function addSong() {
-  let bodyData = getFormData();
+  let bodyData = getSongFormData();
   console.log(bodyData);
   fetch("/api/music", {
       headers: {
@@ -122,8 +122,8 @@ function addSong() {
 }
 
 function updateSong() {
-  let bodyData = getFormData();
-  fetch("/api/music/"+bodyData.id, {
+  let bodyData = getSongFormData();
+  fetch("/api/music/"+JSON.parse(bodyData).id, {
       headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
@@ -141,8 +141,8 @@ function updateSong() {
 
 
 function deleteSong() {
-  let bodyData = getFormData();
-  fetch("/api/music/"+bodyData.id, {
+  let bodyData = getSongFormData();
+  fetch("/api/music/"+JSON.parse(bodyData).id, {
       headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
@@ -235,7 +235,7 @@ function getLinksType(type) {
       .then((json) => showLinksType((json)))
       .catch((err) => console.error("error:", err));
 }
-function getFormData() {
+function getLinkFormData() {
   let aLink = {
       id: document.querySelector("#LinksForm [name='id']").value,
       name: document.querySelector("#LinksForm [name='name']").value,
@@ -245,7 +245,7 @@ function getFormData() {
   return JSON.stringify(aLink);
 }
 function addLink() {
-  let bodyData = getFormData();
+  let bodyData = getLinkFormData();
   fetch("/api/links", {
       headers: {
           'Accept': 'application/json',
@@ -263,8 +263,8 @@ function addLink() {
 }
 
 function updateLink() {
-  let bodyData = getFormData();
-  fetch("/api/links/"+bodyData.id, {
+  let bodyData = getLinkFormData();
+  fetch("/api/links/"+JSON.parse(bodyData).id, {
       headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
@@ -282,8 +282,8 @@ function updateLink() {
 
 
 function deleteLink() {
-  let bodyData = getFormData();
-  fetch("/api/links/"+bodyData.id, {
+  let bodyData = getLinkFormData();
+  fetch("/api/links/"+JSON.parse(bodyData).id, {
       headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'

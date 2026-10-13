@@ -112,12 +112,13 @@ app.put('/api/music/:id', (req, res) => updateSong(req, res));
 app.delete('/api/music/:id', (req, res) => deleteSong(req, res));
 
 
+// database credentials come from environment variables, never from the code
 const connection = mysql.createConnection({
-    user: 'sql11680320', 
-    host: 'sql11.freesqldatabase.com', 
-    database: 'sql11680320',
-    password: 'u3pzqNXXEZ', 
-    port: 3306
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    database: process.env.DB_NAME,
+    password: process.env.DB_PASSWORD,
+    port: process.env.DB_PORT || 3306
 });
 
 connection.connect(function(err) {
@@ -131,7 +132,8 @@ connection.connect(function(err) {
   const showResults = (response, error, results) => {
     if (error) {
         console.log(error);
-        results.status(200).json([]);
+        response.status(200).json([]);
+        return;
     }
     response.status(200).json(results);
 }
